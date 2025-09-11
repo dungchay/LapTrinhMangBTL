@@ -28,18 +28,6 @@ MulticastChatMain: Chịu trách nhiệm xử lý các tác vụ mạng, bao g�
 MulticastChatApp: Quản lý giao diện người dùng, hiển thị tin nhắn, và lưu trữ dữ liệu chat.
 
 Với thiết kế này, Chat Room không chỉ mang lại trải nghiệm giao tiếp hiệu quả mà còn dễ dàng mở rộng để tích hợp thêm các tính năng nâng cao trong tương lai.
-## 📖 1. Giới thiệu hệ thống
-Ứng dụng chat Client-Server sử dụng giao thức TCP cho phép nhiều người dùng giao tiếp thời gian thực qua mạng. Server đóng vai trò trung tâm, quản lý kết nối và chuyển tiếp tin nhắn, trong khi client cung cấp giao diện người dùng để gửi và nhận tin nhắn. Dữ liệu được lưu trữ dưới dạng file văn bản thay vì cơ sở dữ liệu, giúp đơn giản hóa triển khai.
-
-Các chức năng chính: 
-1. Kết nối và xác thực cơ bản: Client kết nối đến server qua địa chỉ IP và port (mặc định: 1234). Server hỗ trợ nhiều client đồng thời thông qua đa luồng.
-2. Gửi và nhận tin nhắn: Người dùng gửi tin nhắn từ client, server nhận và phát tán (broadcast) đến tất cả client khác, hỗ trợ chat nhóm.
-3. Lưu trữ lịch sử chat: Server lưu tin nhắn vào file chat_history.txt với định dạng [Timestamp] - [Tên người dùng]: [Nội dung]. Client mới có thể tải lịch sử từ file.
-4. Quản lý người dùng: Server theo dõi danh sách client online, cập nhật khi có kết nối/ngắt kết nối. Client hiển thị danh sách này (tùy chọn).
-5. Giao diện người dùng: Sử dụng Java Swing với cửa sổ chat gồm khu vực hiển thị tin nhắn, ô nhập văn bản và nút gửi.
-6. Xử lý lỗi: Xử lý các trường hợp như mất kết nối hoặc lỗi ghi file.
-Hệ thống sử dụng TCP để đảm bảo truyền tin nhắn đáng tin cậy, không hỗ trợ mã hóa hoặc bảo mật nâng cao trong phiên bản cơ bản.
-
 ## 🔧 2. Công nghệ sử dụng
 Java: Sử dụng Java làm ngôn ngữ chính nhờ tính đa nền tảng, hỗ trợ tốt các thư viện mạng và giao diện người dùng. Phiên bản JDK (ví dụ: OpenJDK 17) được sử dụng để đảm bảo tương thích với các môi trường phát triển hiện đại.
 
