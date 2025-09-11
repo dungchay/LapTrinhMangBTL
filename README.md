@@ -62,84 +62,54 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
 ## 🚀 3. Hình ảnh các chức năng
 
 <p align="center">
-  <img src="docs/anhGiaoDien.jpg" alt="Ảnh 1" width="800"/>
+  <img src="picture/Screenshot 2025-09-11 093729.png" alt="Ảnh 1" width="400"/>
 </p>
 
 <p align="center">
-  <em>Hình 1: Ảnh giao diện chat giữa Client-Server  Hình 2: Ảnh 2 Client chat với Server</em>
+  <em>Hình 1: Ảnh giao diện chat room giữa các client</em>
 </p>
 
 <p align="center">
-  <img src="docs/anhClientChatServer.jpg" alt="Ảnh 2" width="300"/>
+  <img src="picture/Screenshot 2025-09-11 094130.png" alt="Ảnh 2" width="400"/>
 </p>
 <p align="center">
   <em> Hình 2: Ảnh 2 Client chat với Server</em>
 </p>
 
-<p align="center">
-  <img src="docs/anhServertraloiClientLA.jpg" alt="Ảnh 3" width="500"/>
-    <img src="docs/anhServertraloiClientHoa.jpg" alt="Ảnh 4" width="500"/>
-</p>
-<p align="center">
-  <em> Hình 3: Ảnh Server trả lời Client Lanh - Hình 4: Ảnh Server trả lời Client Hoa</em>
-</p>
 
 <p align="center">
-  <img src="docs/anhLichSuChatLuuTxt.jpg" alt="Ảnh 5" width="500"/>
-    <img src="docs/anhServerxoaDL.jpg" alt="Ảnh 6" width="300"/>
+  <img src="picture/Screenshot 2025-09-11 094210.png" alt="Ảnh 5" width="500"/>
 </p>
 <p align="center">
-  <em> Hình 5: Ảnh lịch sử chat được lưu vào file txt - Hình 5: Ảnh Server xóa dữ liệu</em>
+  <em> Hình 3: Ảnh lịch sử chat được lưu vào file txt - </em>
 </p>
 
-<p align="center">
-  <img src="docs/anhServerngatKetNoiClient.jpg" alt="Ảnh 7" width="600"/>
-</p>
-<p align="center">
-  <em> Hình 7: Ảnh Server ngắt kết nối với CLient</em>
-</p>
+
 
 ## 📝 4. Các bước cài đặt
+**Bước 1**: Chuẩn bị môi trường
 
-Yêu cầu hệ thống:
+Cài đặt Java Development Kit (JDK):
 
-    Java Development Kit (JDK) phiên bản 8 hoặc cao hơn.
-    Môi trường phát triển hoặc terminal để biên dịch và chạy mã.
+Tải JDK phiên bản 8 hoặc cao hơn (khuyến nghị OpenJDK 17) từ adoptium.net hoặc oracle.com.
 
-Các bước cài đặt và chạy
+Cài đặt JDK theo hướng dẫn của nhà cung cấp.
 
-Chuẩn bị mã nguồn:
+Sau cài đặt, kiểm tra bằng cách mở terminal và chạy:
 
-Tải hoặc sao chép hai file: Server.java và Client.java vào cùng một thư mục (package UngDungChat_TCP).
+        java -version
+        
+Nếu thấy phiên bản (ví dụ: "openjdk 17.0.1"), JDK đã sẵn sàng.
 
+**Bước 2**: Tải 2 file MulticastChatApp.java và MulticastChatMain.java
 
-Biên dịch mã nguồn:
+        Đảm bảo 2 file ở chung 1 package
 
-Mở terminal, điều hướng đến thư mục chứa file.
+**Bước 3**: Mở file MulticastChatMain.java
 
-Chạy lệnh:
+        run java và sau đó Server sẽ khởi động và hiển thị giao diện, chờ kết nối từ client. 
 
-    textjavac UngDungChat_TCP/*.java
-
-Đảm bảo không có lỗi biên dịch.
-
-Chạy Server:
-
-Trong terminal, chạy:
-
-    textjava UngDungChat_TCP.Server
-
-Server sẽ khởi động và hiển thị giao diện, chờ kết nối từ client.
-
-Chạy Client:
-
-Mở một terminal mới (hoặc nhiều terminal để chạy nhiều client).
-
-Chạy:
-
-    textjava UngDungChat_TCP.Client
-
-Nhập tên client (ví dụ: "Lanh", "Hoa:) khi dialog xuất hiện, client sẽ kết nối đến server.
+        Mở một terminal mới (hoặc nhiều terminal để chạy nhiều client).
 
 © 2025 AIoTLab, Faculty of Information Technology, DaiNam University. All rights reserved.
 
