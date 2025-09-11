@@ -21,6 +21,14 @@
 
 ---
 ## 📖 1. Giới thiệu hệ thống
+Chat Room là một ứng dụng giao tiếp nhóm được thiết kế để hỗ trợ trao đổi tin nhắn theo thời gian thực giữa nhiều người dùng trong cùng một mạng nội bộ (LAN) thông qua giao thức UDP Multicast. Hệ thống cho phép người dùng gửi và nhận tin nhắn mà không cần một máy chủ trung tâm, tận dụng đặc điểm truyền phát dữ liệu đa điểm của multicast để tối ưu hóa hiệu suất mạng. Ứng dụng cung cấp giao diện thân thiện với người dùng, hỗ trợ lưu trữ lịch sử trò chuyện vào file log, và được xây dựng với mục tiêu đơn giản hóa quy trình giao tiếp nhóm trong các môi trường như văn phòng, lớp học, hoặc các sự kiện nội bộ.
+Hệ thống bao gồm hai thành phần chính:
+
+MulticastChatMain: Chịu trách nhiệm xử lý các tác vụ mạng, bao gồm gửi và nhận tin nhắn qua UDP Multicast.
+MulticastChatApp: Quản lý giao diện người dùng, hiển thị tin nhắn, và lưu trữ dữ liệu chat.
+
+Với thiết kế này, Chat Room không chỉ mang lại trải nghiệm giao tiếp hiệu quả mà còn dễ dàng mở rộng để tích hợp thêm các tính năng nâng cao trong tương lai.
+## 📖 1. Giới thiệu hệ thống
 Ứng dụng chat Client-Server sử dụng giao thức TCP cho phép nhiều người dùng giao tiếp thời gian thực qua mạng. Server đóng vai trò trung tâm, quản lý kết nối và chuyển tiếp tin nhắn, trong khi client cung cấp giao diện người dùng để gửi và nhận tin nhắn. Dữ liệu được lưu trữ dưới dạng file văn bản thay vì cơ sở dữ liệu, giúp đơn giản hóa triển khai.
 
 Các chức năng chính: 
@@ -33,45 +41,36 @@ Các chức năng chính:
 Hệ thống sử dụng TCP để đảm bảo truyền tin nhắn đáng tin cậy, không hỗ trợ mã hóa hoặc bảo mật nâng cao trong phiên bản cơ bản.
 
 ## 🔧 2. Công nghệ sử dụng
-Dưới đây là mô tả chi tiết về các công nghệ được sử dụng để xây dựng ứng dụng chat Client-Server sử dụng TCP với Java Swing, dựa trên yêu cầu của bạn:
+Java: Sử dụng Java làm ngôn ngữ chính nhờ tính đa nền tảng, hỗ trợ tốt các thư viện mạng và giao diện người dùng. Phiên bản JDK (ví dụ: OpenJDK 17) được sử dụng để đảm bảo tương thích với các môi trường phát triển hiện đại.
 
-#### Java Core và Multithreading:
+#### Java Core và Multithreading: 
 Sử dụng ExecutorService (thuộc gói java.util.concurrent) để quản lý một pool các luồng (thread) trên server, cho phép xử lý đồng thời nhiều kết nối client mà không cần tạo thủ công từng Thread. Điều này giúp cải thiện hiệu suất và quản lý tài nguyên hiệu quả hơn so với sử dụng Thread trực tiếp. Ví dụ: Executors.newFixedThreadPool() được dùng để giới hạn số luồng tối đa, mỗi luồng xử lý một client.
 
-#### Java Swing:
+#### Thư Viện và Framework:
 Xây dựng giao diện đồ họa (GUI) cho client sử dụng các thành phần của gói javax.swing.*:
 
-    JFrame: Cửa sổ chính của ứng dụng client.
-    JTextArea: Hiển thị lịch sử tin nhắn, đặt trong JScrollPane để hỗ trợ cuộn khi số lượng tin nhắn dài.
-    JTextField: Ô nhập liệu để người dùng gõ tin nhắn.
-    JButton: Nút "Gửi" để gửi tin nhắn khi nhấn hoặc khi nhấn Enter.
-    JScrollPane: Bao quanh JTextArea để cung cấp thanh cuộn, cải thiện trải nghiệm người dùng.
+        Java Swing: Được sử dụng để xây dựng giao diện đồ họa (GUI) với các thành phần như JFrame, JTextArea, JTextField, và JButton. Swing cung cấp khả năng tùy chỉnh cao và dễ tích hợp với các ứng dụng Java.
+        
+        Java Networking API: Sử dụng các lớp như MulticastSocket, DatagramPacket, để triển khai giao thức UDP Multicast, cho phép truyền dữ liệu đa điểm hiệu quả.
 
 Swing cung cấp giao diện thân thiện, dễ tùy chỉnh mà không cần thư viện bên ngoài.
 
-#### Java Sockets:
-Sử dụng gói java.net.* để triển khai kết nối mạng theo giao thức TCP:
-
-    ServerSocket: Được server sử dụng để lắng nghe các kết nối đến trên một cổng cụ thể (ví dụ: port 1234). Phương thức accept() trả về Socket cho mỗi client kết nối.
-    Socket: Được client sử dụng để kết nối đến server thông qua địa chỉ IP và port.
-    DataInputStream và DataOutputStream: Xử lý việc đọc/ghi dữ liệu dạng nhị phân giữa client và server, đảm bảo truyền tin nhắn chính xác, tuần tự và không mất mát. 
-
-Đây là lựa chọn phù hợp khi cần truyền dữ liệu đơn giản như chuỗi văn bản.
+#### Công nghệ mạng:
+        UDP Multicast: Sử dụng giao thức UDP Multicast để truyền tin nhắn đến nhiều người nhận trong cùng một nhóm (ví dụ: địa chỉ multicast 224.0.0.69, cổng 3000). Phương pháp này giảm tải băng thông so với gửi riêng lẻ đến từng client.
+        
+        Socket: Được client sử dụng để kết nối đến server thông qua địa chỉ IP và port.
+        
+        Threading: Sử dụng luồng (thread) trong Java để xử lý nhận tin nhắn đồng thời với giao diện, đảm bảo ứng dụng không bị treo khi chờ dữ liệu mạng.
 
 #### File I/O:
 
-Sử dụng các lớp trong gói java.io.* để lưu trữ và truy xuất lịch sử chat:
-
-    FileWriter hoặc BufferedWriter: Ghi tin nhắn vào file văn bản (ví dụ: chat_history.txt) theo chế độ append để không ghi đè dữ liệu cũ. Mỗi tin nhắn được lưu với định dạng như [Timestamp] - [Tên người dùng]: [Nội dung].
-    BufferedReader: Đọc lịch sử tin nhắn từ file để hiển thị khi client mới kết nối hoặc khi người dùng yêu cầu tải lịch sử.
-Sử dụng từ khóa synchronized hoặc Lock (từ java.util.concurrent.locks) để đảm bảo an toàn luồng (thread-safe) khi nhiều client gửi tin nhắn đồng thời, tránh xung đột ghi file.
+        File I/O: Sử dụng lớp BufferedWriter và FileWriter để ghi lại lịch sử chat vào file chat_log.txt, hỗ trợ lưu trữ dài hạn và dễ dàng truy xuất.
 
 #### Hỗ trợ:
 
     java.util.Date hoặc java.time.LocalDateTime: Tạo timestamp cho mỗi tin nhắn để ghi vào file và hiển thị trên giao diện, giúp người dùng theo dõi thời gian gửi.
     ArrayList: Quản lý danh sách các client đang kết nối trên server (lưu trữ PrintWriter hoặc DataOutputStream của từng client) để broadcast tin nhắn. Có thể mở rộng để lưu danh sách tên người dùng và trạng thái online/offline.
 Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và dễ triển khai trên mọi môi trường Java.
-
 ## 🚀 3. Hình ảnh các chức năng
 
 <p align="center">
