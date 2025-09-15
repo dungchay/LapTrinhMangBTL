@@ -70,7 +70,7 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
 </p>
 
 <p align="center">
-  <img src="picture/Screenshot 2025-09-15 100406.png" alt="Ảnh 2" width="1000"/>
+  <img src="picture/Screenshot 2025-09-15 100420.png" alt="Ảnh 2" width="1000"/>
 </p>
 <p align="center">
   <em> Hình 2: Ảnh 2 Client chat với Server</em>
