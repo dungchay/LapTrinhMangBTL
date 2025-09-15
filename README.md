@@ -66,14 +66,14 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
 </p>
 
 <p align="center">
-  <em>Hình 1: Ảnh giao diện chat room giữa các client</em>
+  <em>Hình 1: Ảnh giao diện chat room giữa server và client</em>
 </p>
 
 <p align="center">
   <img src="picture/Screenshot 2025-09-15 100420.png" alt="Ảnh 2" width="800"/>
 </p>
 <p align="center">
-  <em> Hình 2: Ảnh 2 Client chat với Server</em>
+  <em> Hình 2: Ảnh 2 Chức năng thêm người quen</em>
 </p>
 
 
@@ -81,7 +81,7 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
   <img src="picture/Screenshot 2025-09-15 100426.png" alt="Ảnh 5" width="800"/>
 </p>
 <p align="center">
-  <em> Hình 3: Ảnh lịch sử chat được lưu vào file txt - </em>
+  <em> Hình 3: Chức năng xoá người quen - </em>
 </p>
 
 
