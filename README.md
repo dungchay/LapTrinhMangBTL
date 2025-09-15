@@ -62,7 +62,7 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
 ## 🚀 3. Hình ảnh các chức năng
 
 <p align="center">
-  <img src="picture/Screenshot 2025-09-11 093729.png" alt="Ảnh 1" width="400"/>
+  <img src="picture/Screenshot 2025-09-11 093729.png" alt="Ảnh 1" width="1000"/>
 </p>
 
 <p align="center">
@@ -70,7 +70,7 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
 </p>
 
 <p align="center">
-  <img src="picture/Screenshot 2025-09-11 094130.png" alt="Ảnh 2" width="400"/>
+  <img src="picture/Screenshot 2025-09-11 094130.png" alt="Ảnh 2" width="1000"/>
 </p>
 <p align="center">
   <em> Hình 2: Ảnh 2 Client chat với Server</em>
@@ -78,7 +78,7 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
 
 
 <p align="center">
-  <img src="picture/Screenshot 2025-09-11 094210.png" alt="Ảnh 5" width="500"/>
+  <img src="picture/Screenshot 2025-09-11 094210.png" alt="Ảnh 5" width="1000"/>
 </p>
 <p align="center">
   <em> Hình 3: Ảnh lịch sử chat được lưu vào file txt - </em>
