@@ -62,7 +62,7 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
 ## 🚀 3. Hình ảnh các chức năng
 
 <p align="center">
-  <img src="picture/Screenshot 2025-09-11 093729.png" alt="Ảnh 1" width="1000"/>
+  <img src="picture/Screenshot 2025-09-15 100406.png" alt="Ảnh 1" width="1000"/>
 </p>
 
 <p align="center">
