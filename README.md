@@ -111,6 +111,9 @@ Nếu thấy phiên bản (ví dụ: "openjdk 17.0.1"), JDK đã sẵn sàng.
 
         Mở một terminal mới (hoặc nhiều terminal để chạy nhiều client).
 
+
+**Mọi Thắc Mắc Vui Lòng Liên Hệ Theo SDT Dưới**
+    0356484203
 © 2025 AIoTLab, Faculty of Information Technology, DaiNam University. All rights reserved.
 
 ---
