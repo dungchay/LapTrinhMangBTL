@@ -4,7 +4,7 @@
     </a>
 </h2>
 <h2 align="center">
-    XÂY DỰNG ỨNG DỤNG CHAT ROOM DÙNG UDP MULTICAST
+    CHAT ROOM DÙNG UDP MULTICAST
 </h2>
 <div align="center">
     <p align="center">
