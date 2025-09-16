@@ -109,7 +109,7 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
   <img src="picture/Screenshot 2025-09-16 141219.png" alt="Ảnh 5" width="800"/>
 </p>
 <p align="center">
-  <em> Hình 7: Khi 1 client bị kick - </em>
+  <em> Hình 7: Khi 1 client bị kick bởi admin - </em>
 </p>
 
 ## 📝 4. Các bước cài đặt
