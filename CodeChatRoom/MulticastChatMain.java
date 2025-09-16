@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.*;
 
 public class MulticastChatMain {
-    private static final String GROUP_ADDRESS = "230.0.0.0"; // địa chỉ multicast
-    private static final int PORT = 4446;                    // cổng multicast
+    private static final String GROUP_ADDRESS = "230.0.0.0";
+    private static final int PORT = 4446;
     private MulticastSocket socket;
     private InetAddress group;
 
@@ -37,7 +37,6 @@ public class MulticastChatMain {
             socket.receive(packet);
             return new String(packet.getData(), 0, packet.getLength());
         } catch (IOException e) {
-            // nếu socket đóng thì trả null
             return null;
         }
     }
@@ -51,7 +50,6 @@ public class MulticastChatMain {
         }
     }
 
-    // Entry point để chạy app
     public static void main(String[] args) {
         MulticastChatMain networkHandler = new MulticastChatMain();
         new MulticastChatApp(networkHandler);
