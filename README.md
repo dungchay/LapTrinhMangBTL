@@ -81,7 +81,7 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
   <img src="picture/Screenshot 2025-09-16 140817.png" alt="Ảnh 5" width="800"/>
 </p>
 <p align="center">
-  <em> Hình 3: Thông báo khi có người tham gia và thoát ra - </em>
+  <em> Hình 3: Hình ảnh chat của server và client  - </em>
 </p>
 
 <p align="center">
