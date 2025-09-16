@@ -73,7 +73,7 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
   <img src="picture/Screenshot 2025-09-16 134828.png" alt="Ảnh 2" width="800"/>
 </p>
 <p align="center">
-  <em> Hình 2: Giao diện của server và client</em>
+  <em> Hình 2: Giao diện của server và client khi chat </em>
 </p>
 
 
@@ -81,7 +81,7 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
   <img src="picture/Screenshot 2025-09-16 140817.png" alt="Ảnh 5" width="800"/>
 </p>
 <p align="center">
-  <em> Hình 3: Thông báo khi có người tham gia - </em>
+  <em> Hình 3: Thông báo khi có người tham gia và thoát ra - </em>
 </p>
 
 <p align="center">
