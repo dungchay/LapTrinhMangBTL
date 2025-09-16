@@ -17,6 +17,7 @@ public class MulticastChatApp extends JFrame {
     private final JTextPane chatArea = new JTextPane();
     private final JTextField inputField = new JTextField();
 
+    // Clients table
     private final DefaultTableModel clientTableModel = new DefaultTableModel(
             new Object[]{"Tên", "Trạng thái", "Vai trò"}, 0
     );
@@ -29,6 +30,7 @@ public class MulticastChatApp extends JFrame {
     private final ConcurrentMap<String, Integer> chatFrequency = new ConcurrentHashMap<>();
     private final ConcurrentMap<String, Long> onlineClients = new ConcurrentHashMap<>();
     private final Set<String> importantUsers = Collections.synchronizedSet(new HashSet<>());
+    private final Set<String> mutedUsers = Collections.synchronizedSet(new HashSet<>()); // danh sách bị mute
     private final List<String> chatHistory = Collections.synchronizedList(new ArrayList<>());
 
     private volatile boolean running = true;
@@ -37,6 +39,7 @@ public class MulticastChatApp extends JFrame {
 
     private static final Pattern IP_PATTERN = Pattern.compile("^\\d{1,3}(\\.\\d{1,3}){3}$");
 
+    // Màu cố định cho user
     private final Map<String, Color> userColors = new HashMap<>();
 
     public MulticastChatApp(MulticastChatMain networkHandler) {
@@ -56,7 +59,6 @@ public class MulticastChatApp extends JFrame {
         userColors.put("chi", new Color(220, 20, 60));
         userColors.put("quynh", new Color(255, 140, 0));
         userColors.put("hue", new Color(255, 20, 147));
-        userColors.put("SYSTEM", Color.GRAY);
     }
 
     private void authenticateUser() {
@@ -147,32 +149,11 @@ public class MulticastChatApp extends JFrame {
 
     private JPanel createClientsPanel() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
-
         clientTable.setRowHeight(28);
         clientTable.setFillsViewportHeight(true);
         clientTable.setDefaultEditor(Object.class, null);
-        clientTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
-                                                          boolean isSelected, boolean hasFocus,
-                                                          int row, int column) {
-                JLabel lbl = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                String name = (String) table.getValueAt(row, 0);
-
-                if (userColors.containsKey(name)) {
-                    lbl.setForeground(userColors.get(name));
-                } else if (importantUsers.contains(name)) {
-                    lbl.setForeground(Color.RED);
-                } else {
-                    lbl.setForeground(Color.BLUE);
-                }
-                return lbl;
-            }
-        });
-
         panel.add(new JScrollPane(clientTable), BorderLayout.CENTER);
         panel.add(onlineStatusLabel, BorderLayout.SOUTH);
-
         return panel;
     }
 
@@ -187,29 +168,52 @@ public class MulticastChatApp extends JFrame {
     private JPanel createAdminPanel() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         JButton kickBtn = new JButton("Kick");
-        JButton markBtn = new JButton("Mark Important");
+        JButton markBtn = new JButton("Quan trọng");
+        JButton muteBtn = new JButton("Im lặng");
+        JButton unmuteBtn = new JButton("Bỏ im lặng");
+        JButton systemBtn = new JButton("Thông báo hệ thống");
 
         kickBtn.addActionListener(e -> {
-            int row = clientTable.getSelectedRow();
-            if (row >= 0) {
-                String sel = (String) clientTableModel.getValueAt(row, 0);
-                if (!"Admin".equals(sel)) {
-                    networkHandler.sendMessage("[KICK] " + sel);
-                }
+            String target = JOptionPane.showInputDialog(this, "Nhập tên user cần kick:");
+            if (target != null && !target.trim().isEmpty() && !target.equals("Admin")) {
+                networkHandler.sendMessage("[KICK] " + target.trim());
             }
         });
 
         markBtn.addActionListener(e -> {
-            int row = clientTable.getSelectedRow();
-            if (row >= 0) {
-                String sel = (String) clientTableModel.getValueAt(row, 0);
-                networkHandler.sendMessage("[IMPORTANT] " + sel);
+            String target = JOptionPane.showInputDialog(this, "Nhập tên user cần đánh dấu quan trọng:");
+            if (target != null && !target.trim().isEmpty()) {
+                networkHandler.sendMessage("[IMPORTANT] " + target.trim());
+            }
+        });
+
+        muteBtn.addActionListener(e -> {
+            String target = JOptionPane.showInputDialog(this, "Nhập tên user cần mute:");
+            if (target != null && !target.trim().isEmpty()) {
+                networkHandler.sendMessage("[MUTE] " + target.trim());
+            }
+        });
+
+        unmuteBtn.addActionListener(e -> {
+            String target = JOptionPane.showInputDialog(this, "Nhập tên user cần unmute:");
+            if (target != null && !target.trim().isEmpty()) {
+                networkHandler.sendMessage("[UNMUTE] " + target.trim());
+            }
+        });
+
+        systemBtn.addActionListener(e -> {
+            String msg = JOptionPane.showInputDialog(this, "Nhập thông báo hệ thống:");
+            if (msg != null && !msg.trim().isEmpty()) {
+                networkHandler.sendMessage("[SYSTEM] " + msg);
             }
         });
 
         JPanel btns = new JPanel();
         btns.add(kickBtn);
         btns.add(markBtn);
+        btns.add(muteBtn);
+        btns.add(unmuteBtn);
+        btns.add(systemBtn);
 
         panel.add(new JScrollPane(clientTable), BorderLayout.CENTER);
         panel.add(btns, BorderLayout.SOUTH);
@@ -219,6 +223,10 @@ public class MulticastChatApp extends JFrame {
     private void sendMessage() {
         String msg = inputField.getText().trim();
         if (!msg.isEmpty()) {
+            if (mutedUsers.contains(currentUser)) {
+                JOptionPane.showMessageDialog(this, "Bạn đã bị mute và không thể gửi tin nhắn!");
+                return;
+            }
             String fullMsg = currentUser + ": " + msg;
             networkHandler.sendMessage(fullMsg);
             inputField.setText("");
@@ -240,9 +248,7 @@ public class MulticastChatApp extends JFrame {
             if (!IP_PATTERN.matcher(user).matches()) {
                 boolean isNew = !onlineClients.containsKey(user);
                 onlineClients.put(user, System.currentTimeMillis());
-                if (isNew) {
-                    SwingUtilities.invokeLater(() -> appendColoredMessage("SYSTEM", user + " đã vào phòng"));
-                }
+                if (isNew) appendColoredMessage("SYSTEM", user + " đã vào phòng");
                 SwingUtilities.invokeLater(this::updateOnlineStatusLabelAndTable);
             }
         } else if (msg.startsWith("[KICK]")) {
@@ -252,11 +258,9 @@ public class MulticastChatApp extends JFrame {
                 running = false;
                 dispose();
             }
-            if (onlineClients.containsKey(target)) {
-                SwingUtilities.invokeLater(() -> appendColoredMessage("SYSTEM", target + " đã thoát"));
-            }
             onlineClients.remove(target);
             importantUsers.remove(target);
+            appendColoredMessage("SYSTEM", target + " đã bị kick");
             SwingUtilities.invokeLater(this::updateOnlineStatusLabelAndTable);
         } else if (msg.startsWith("[IMPORTANT]")) {
             String target = msg.substring(11).trim();
@@ -264,23 +268,50 @@ public class MulticastChatApp extends JFrame {
             SwingUtilities.invokeLater(this::updateOnlineStatusLabelAndTable);
         } else if (msg.startsWith("[LOGOUT]")) {
             String target = msg.substring(8).trim();
-            if (onlineClients.containsKey(target)) {
-                SwingUtilities.invokeLater(() -> appendColoredMessage("SYSTEM", target + " đã thoát"));
-            }
             onlineClients.remove(target);
             importantUsers.remove(target);
+            appendColoredMessage("SYSTEM", target + " đã thoát");
             SwingUtilities.invokeLater(this::updateOnlineStatusLabelAndTable);
+        } else if (msg.startsWith("[PRIVATE]")) {
+            // format: [PRIVATE] sender -> receiver: message
+            String content = msg.substring(9).trim();
+            if (content.contains("->")) {
+                String[] parts = content.split("->", 2);
+                String sender = parts[0].trim();
+                String rest = parts[1].trim();
+                if (rest.contains(":")) {
+                    String[] receiverMsg = rest.split(":", 2);
+                    String receiver = receiverMsg[0].trim();
+                    String text = receiverMsg[1].trim();
+                    if (receiver.equals(currentUser) || sender.equals(currentUser)) {
+                        appendColoredMessage("[PRIVATE] " + sender, text);
+                    }
+                }
+            }
+        } else if (msg.startsWith("[SYSTEM]")) {
+            String systemMsg = msg.substring(8).trim();
+            appendColoredMessage("SYSTEM", systemMsg);
+        } else if (msg.startsWith("[MUTE]")) {
+            String target = msg.substring(6).trim();
+            if (target.equals(currentUser)) {
+                mutedUsers.add(target);
+                JOptionPane.showMessageDialog(this, "Bạn đã bị mute!");
+            }
+        } else if (msg.startsWith("[UNMUTE]")) {
+            String target = msg.substring(8).trim();
+            mutedUsers.remove(target);
+            if (target.equals(currentUser)) {
+                JOptionPane.showMessageDialog(this, "Bạn đã được unmute!");
+            }
         } else {
             chatHistory.add(msg);
             String[] parts = msg.split(":", 2);
             if (parts.length == 2) {
                 String user = parts[0].trim();
                 String text = parts[1].trim();
-                SwingUtilities.invokeLater(() -> {
-                    appendColoredMessage(user, text);
-                    updateTopChat();
-                    updateHistoryLog();
-                });
+                appendColoredMessage(user, text);
+                updateTopChat();
+                updateHistoryLog();
                 chatFrequency.merge(user, 1, Integer::sum);
             }
         }
@@ -305,11 +336,9 @@ public class MulticastChatApp extends JFrame {
             }
         }
         for (String u : removeList) {
-            if (onlineClients.containsKey(u)) {
-                SwingUtilities.invokeLater(() -> appendColoredMessage("SYSTEM", u + " đã thoát (timeout)"));
-            }
             onlineClients.remove(u);
             importantUsers.remove(u);
+            appendColoredMessage("SYSTEM", u + " đã mất kết nối");
         }
         SwingUtilities.invokeLater(this::updateOnlineStatusLabelAndTable);
     }
@@ -347,7 +376,15 @@ public class MulticastChatApp extends JFrame {
         StyledDocument doc = chatArea.getStyledDocument();
         Style style = chatArea.addStyle("UserStyle", null);
 
-        Color color = userColors.getOrDefault(user, Color.BLACK);
+        Color color;
+        if (user.equals("SYSTEM")) {
+            color = Color.RED;
+        } else if (user.startsWith("[PRIVATE]")) {
+            color = Color.MAGENTA;
+        } else {
+            color = userColors.getOrDefault(user, Color.BLACK);
+        }
+
         StyleConstants.setForeground(style, color);
         StyleConstants.setBold(style, true);
 
