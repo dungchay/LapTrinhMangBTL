@@ -62,29 +62,55 @@ Không sử dụng thư viện bên ngoài, đảm bảo ứng dụng nhẹ và 
 ## 🚀 3. Hình ảnh các chức năng
 
 <p align="center">
-  <img src="picture/Screenshot 2025-09-15 100406.png" alt="Ảnh 1" width="800"/>
+  <img src="picture/Screenshot 2025-09-16 141353.png" alt="Ảnh 1" width="800"/>
 </p>
 
 <p align="center">
-  <em>Hình 1: Ảnh giao diện chat room giữa server và client</em>
+  <em>Hình 1:  Chức năng đăng nhập</em>
 </p>
 
 <p align="center">
-  <img src="picture/Screenshot 2025-09-15 100420.png" alt="Ảnh 2" width="800"/>
+  <img src="picture/Screenshot 2025-09-16 134828.png" alt="Ảnh 2" width="800"/>
 </p>
 <p align="center">
-  <em> Hình 2: Ảnh 2 Chức năng thêm người quen</em>
+  <em> Hình 2: Giao diện của server và client</em>
 </p>
 
 
 <p align="center">
-  <img src="picture/Screenshot 2025-09-15 100426.png" alt="Ảnh 5" width="800"/>
+  <img src="picture/Screenshot 2025-09-16 140817.png" alt="Ảnh 5" width="800"/>
 </p>
 <p align="center">
-  <em> Hình 3: Chức năng xoá người quen - </em>
+  <em> Hình 3: Thông báo khi có người tham gia - </em>
 </p>
 
+<p align="center">
+  <img src="picture/Screenshot 2025-09-16 140702.png" alt="Ảnh 5" width="800"/>
+</p>
+<p align="center">
+  <em> Hình 4: Thông báo khi có người thoát ra - </em>
+</p>
 
+<p align="center">
+  <img src="picture/Screenshot 2025-09-16 140708.png" alt="Ảnh 5" width="800"/>
+</p>
+<p align="center">
+  <em> Hình 5: Lịch sử chat của server hoặc client - </em>
+</p>
+
+<p align="center">
+  <img src="picture/Screenshot 2025-09-16 140754.png" alt="Ảnh 5" width="800"/>
+</p>
+<p align="center">
+  <em> Hình 6: quyền quản trị của riêng admin - </em>
+</p>
+
+<p align="center">
+  <img src="picture/Screenshot 2025-09-16 141219.png" alt="Ảnh 5" width="800"/>
+</p>
+<p align="center">
+  <em> Hình 7: Khi 1 client bị kick - </em>
+</p>
 
 ## 📝 4. Các bước cài đặt
 **Bước 1**: Chuẩn bị môi trường
