@@ -137,6 +137,7 @@ Nếu thấy phiên bản (ví dụ: "openjdk 17.0.1"), JDK đã sẵn sàng.
 
         Mở một terminal mới (hoặc nhiều terminal để chạy nhiều client).
 
+## 5. Thông tin liên hệ
 
 **Mọi Thắc Mắc Vui Lòng Liên Hệ Theo Thông Tin Bên Dưới Dưới**
 
