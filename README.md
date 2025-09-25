@@ -142,6 +142,8 @@ Nếu thấy phiên bản (ví dụ: "openjdk 17.0.1"), JDK đã sẵn sàng.
 
 **Trường**: Đại Học Đại Nam
 
+**Tác Giả**: Đỗ Huy Dũng
+
 **Lớp**: CNTT 16-03
 
 **SDT**: 0356484203
