@@ -140,7 +140,12 @@ Nếu thấy phiên bản (ví dụ: "openjdk 17.0.1"), JDK đã sẵn sàng.
 
 **Mọi Thắc Mắc Vui Lòng Liên Hệ Theo Thông Tin Bên Dưới Dưới**
 
+**Trường**: Đại Học Đại Nam
+
+**Lớp**: CNTT 16-03
+
 **SDT**: 0356484203
+
 **EMAIL**: dohuydung24@gmail.com
     
 © 2025 AIoTLab, Faculty of Information Technology, DaiNam University. All rights reserved.
